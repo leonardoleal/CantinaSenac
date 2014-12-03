@@ -1,0 +1,21 @@
+# Eclipse
+bin/*
+.metadata/*
+.project
+.classpath
+.settings/*
+
+# Astah
+*.asta
+
+# JAVA
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Restricoes Eventuais #
+db/*
+docs/*
