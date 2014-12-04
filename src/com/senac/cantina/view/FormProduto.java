@@ -78,7 +78,7 @@ public class FormProduto extends JFrame {
         add(btnCancelar);
     }
 
-    public static void main(String[] args) {
-        new FormProduto();
-    }
+//    public static void main(String[] args) {
+//        new FormProduto();
+//    }
 }

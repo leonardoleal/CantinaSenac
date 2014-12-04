@@ -88,7 +88,7 @@ public class FormFuncionario extends JFrame {
         add(btnCancelar);
     }
 
-    public static void main(String[] args) {
-        new FormFuncionario();
-    }
+//    public static void main(String[] args) {
+//        new FormFuncionario();
+//    }
 }

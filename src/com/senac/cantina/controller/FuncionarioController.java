@@ -18,6 +18,10 @@ public class FuncionarioController implements ActionListener {
         this.formFuncionario = formFuncionario;
     }
 
+    public FuncionarioController() {
+        this.formFuncionario = new FormFuncionario();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(formFuncionario.btnSalvar)) {

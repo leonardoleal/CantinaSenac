@@ -18,6 +18,10 @@ public class ClienteController implements ActionListener {
         this.formCliente = formCliente;
     }
 
+    public ClienteController() {
+        formCliente = new FormCliente(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(formCliente.btnSalvar)) {

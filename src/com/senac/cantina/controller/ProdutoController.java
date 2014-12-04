@@ -16,6 +16,10 @@ public class ProdutoController implements ActionListener {
         this.formProduto = formProduto;
     }
 
+    public ProdutoController() {
+        this.formProduto = new FormProduto();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(formProduto.btnSalvar)) {

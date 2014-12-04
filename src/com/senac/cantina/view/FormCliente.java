@@ -9,7 +9,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.senac.cantina.controller.ClienteController;
-import com.senac.cantina.dao.Dao;
 
 public class FormCliente extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -19,8 +18,19 @@ public class FormCliente extends JFrame {
     public JTextField txtEmail, txtMatricula, txtSaldo, txtNome, txtUsuario;
     public JPasswordField pwdSenha, pwdReSenha;
     public JButton btnSalvar, btnCancelar;
+    private ClienteController clienteC;
 
     public FormCliente() {
+        clienteC = new ClienteController(this);
+        init();
+    }
+
+    public FormCliente(ClienteController clienteController) {
+        clienteC = clienteController;
+        init();
+    }
+
+    private void init() {
         setTitle("Cadastro de Cliente");
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -34,8 +44,6 @@ public class FormCliente extends JFrame {
     }
 
     private void iniciarComponentes() {
-        ClienteController clienteC = new ClienteController(this);
-
         lblCliente = new JLabel("Dados do Cliente");
         lblCliente.setBounds(10, 11, 153, 14);
         add(lblCliente);
@@ -116,8 +124,8 @@ public class FormCliente extends JFrame {
         add(btnCancelar);
     }
 
-    public static void main(String[] args) {
-        Dao.DAODEBUG = false;
-        new FormCliente();
-    }
+//    public static void main(String[] args) {
+//        Dao.DAODEBUG = false;
+//        new FormCliente();
+//    }
 }
