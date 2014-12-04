@@ -70,9 +70,4 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
         return null;
     }
 
-//    public static void main(String[] args) {
-//        Cliente cliente = new Cliente(0, 1, (int)(Math.random()*15234*Math.random()),"leonardo@lealweb.com.br", 52.00);
-//        new ClienteDaoJdbc().inserir(cliente);
-//        System.out.println(cliente.getId() +" "+ cliente.getEmail());
-//    }
 }

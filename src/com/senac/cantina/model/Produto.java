@@ -2,15 +2,16 @@ package com.senac.cantina.model;
 
 public class Produto {
     private int id;
-    private int categoriaId;
+    private int idCategoria;
     private CategoriaProduto categoria;
+    private String nome;
     private double valor;
 
     public Produto() {}
 
-    public Produto(int id, int categoriaId, double valor) {
+    public Produto(int id, int idCategoria, double valor) {
         this.id = id;
-        this.categoriaId = categoriaId;
+        this.idCategoria = idCategoria;
         this.valor = valor;
     }
 
@@ -22,12 +23,20 @@ public class Produto {
         this.id = id;
     }
 
-    public int getCategoriaId() {
-        return categoriaId;
+    public int getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoriaId(int categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getValor() {
