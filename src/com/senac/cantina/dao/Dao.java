@@ -12,11 +12,15 @@ public class Dao {
     protected Connection conexao;
     protected NamedParameterStatement comando;
 
-    protected void iniciaConexao(String sql) throws ClassNotFoundException, SQLException {
+    public void iniciaConexao(String sql, int returnGeneratedKeys) throws ClassNotFoundException, SQLException {
         conexao = ConnectionFactory.getConexaoPostgres();
-        comando = new NamedParameterStatement(conexao, sql);
+        comando = new NamedParameterStatement(conexao, sql, returnGeneratedKeys);
     }
     
+    protected void iniciaConexao(String sql) throws ClassNotFoundException, SQLException {
+        this.iniciaConexao(sql, 0);
+    }
+
     protected void fecharConexao() throws SQLException {
         comando.close();
         conexao.close();

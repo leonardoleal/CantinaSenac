@@ -1,6 +1,8 @@
 package com.senac.cantina.dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import com.senac.cantina.dao.interfaces.ClienteDao;
@@ -13,13 +15,17 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
         String sql = "INSERT INTO cliente(id_usuario, matricula, email, saldo) "
                 + "VALUES (:idUsuario, :matricula, :email, :saldo)";
         try {
-            super.iniciaConexao(sql);
+            super.iniciaConexao(sql, Statement.RETURN_GENERATED_KEYS);
             comando.setInt("idUsuario", cliente.getIdUsuario());
             comando.setInt("matricula", cliente.getMatricula());
             comando.setString("email", cliente.getEmail());
             comando.setDouble("saldo", cliente.getSaldo());
             comando.executeUpdate();
 
+            ResultSet resultado = comando.getGeneratedKeys();
+            resultado.next();
+
+            cliente.setId(resultado.getInt(1));
             return cliente;
         } catch (ClassNotFoundException | SQLException ex) {
             super.logger(this.getClass().getName(), ex);
@@ -29,7 +35,6 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
             } catch (SQLException ex) {
                 super.logger(this.getClass().getName(), ex);
             }
-
         }
 
         return null;
@@ -65,4 +70,9 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
         return null;
     }
 
+//    public static void main(String[] args) {
+//        Cliente cliente = new Cliente(0, 1, (int)(Math.random()*15234*Math.random()),"leonardo@lealweb.com.br", 52.00);
+//        new ClienteDaoJdbc().inserir(cliente);
+//        System.out.println(cliente.getId() +" "+ cliente.getEmail());
+//    }
 }

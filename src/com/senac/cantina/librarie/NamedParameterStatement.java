@@ -59,6 +59,27 @@ public class NamedParameterStatement {
         statement = connection.prepareStatement(parsedQuery);
     }
 
+
+    /**
+     * Creates a NamedParameterStatement. Wraps a call to c.
+     * {@link Connection#prepareStatement(java.lang.String) prepareStatement}.
+     * 
+     * @param connection
+     *            the database connection
+     * @param query
+     *            the parameterized query
+     * @param returnGeneratedKeys
+     *            if want to return key Statement.RETURN_GENERATED_KEYS
+     * @throws SQLException
+     *             if the statement could not be created
+     */
+    public NamedParameterStatement(Connection connection, String query,
+            int returnGeneratedKeys) throws SQLException {
+        indexMap = new HashMap();
+        String parsedQuery = parse(query, indexMap);
+        statement = connection.prepareStatement(parsedQuery, returnGeneratedKeys);
+    }
+
     /**
      * Parses a query with named parameters. The parameter-index mappings are
      * put into the map, and the parsed query is returned. DO NOT CALL FROM
