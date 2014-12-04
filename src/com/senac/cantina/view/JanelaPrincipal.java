@@ -6,12 +6,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.senac.cantina.controller.JanelaPrincipalController;
+import com.senac.cantina.model.Cliente;
 
 public class JanelaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -30,7 +32,15 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void init() {
-        setTitle("Cantina Senac");
+        String titulo = "Cantina Senac";
+
+        if (this.janelaPrincipalC.isCliente()) {
+            titulo += " - Cliente";
+        } else {
+            titulo += " - Funcionario";
+        }
+
+        setTitle(titulo);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(400, 200, 500, 500);
@@ -58,31 +68,60 @@ public class JanelaPrincipal extends JFrame {
 
         barraMenu.add(menuArquivo);
 
-        JMenu menuCadastro = new JMenu("Cadastro");
-        menuArquivo.setMnemonic(KeyEvent.VK_D);
+        if (! this.janelaPrincipalC.isCliente()) {
+            JMenu menuCadastro = new JMenu("Cadastro");
+            menuCadastro.setMnemonic(KeyEvent.VK_D);
 
-        itemCadastroCliente = new JMenuItem("Cadastrar Cliente");
-        itemCadastroCliente.setMnemonic(KeyEvent.VK_C);
-        itemCadastroCliente.setAccelerator(KeyStroke.getKeyStroke("control C"));
-        itemCadastroCliente.setToolTipText("Cadastrar Cliente");
-        itemCadastroCliente.addActionListener(janelaPrincipalC);
-        menuCadastro.add(itemCadastroCliente);
+            itemCadastroCliente = new JMenuItem("Cadastrar Cliente");
+            itemCadastroCliente.setMnemonic(KeyEvent.VK_C);
+            itemCadastroCliente.setAccelerator(KeyStroke.getKeyStroke("control C"));
+            itemCadastroCliente.setToolTipText("Cadastrar Cliente");
+            itemCadastroCliente.addActionListener(janelaPrincipalC);
+            menuCadastro.add(itemCadastroCliente);
 
-        itemCadastroFuncionario = new JMenuItem("Cadastrar Funcionário");
-        itemCadastroFuncionario.setMnemonic(KeyEvent.VK_F);
-        itemCadastroFuncionario.setAccelerator(KeyStroke.getKeyStroke("control F"));
-        itemCadastroFuncionario.setToolTipText("Cadastrar Funcionário");
-        itemCadastroFuncionario.addActionListener(janelaPrincipalC);
-        menuCadastro.add(itemCadastroFuncionario);
+            itemCadastroFuncionario = new JMenuItem("Cadastrar Funcionário");
+            itemCadastroFuncionario.setMnemonic(KeyEvent.VK_F);
+            itemCadastroFuncionario.setAccelerator(KeyStroke.getKeyStroke("control F"));
+            itemCadastroFuncionario.setToolTipText("Cadastrar Funcionário");
+            itemCadastroFuncionario.addActionListener(janelaPrincipalC);
+            menuCadastro.add(itemCadastroFuncionario);
 
-        itemCadastroProduto = new JMenuItem("Cadastrar Produto");
-        itemCadastroProduto.setMnemonic(KeyEvent.VK_P);
-        itemCadastroProduto.setAccelerator(KeyStroke.getKeyStroke("control P"));
-        itemCadastroProduto.setToolTipText("Cadastrar Produto");
-        itemCadastroProduto.addActionListener(janelaPrincipalC);
-        menuCadastro.add(itemCadastroProduto);
+            itemCadastroProduto = new JMenuItem("Cadastrar Produto");
+            itemCadastroProduto.setMnemonic(KeyEvent.VK_P);
+            itemCadastroProduto.setAccelerator(KeyStroke.getKeyStroke("control P"));
+            itemCadastroProduto.setToolTipText("Cadastrar Produto");
+            itemCadastroProduto.addActionListener(janelaPrincipalC);
+            menuCadastro.add(itemCadastroProduto);
 
-        barraMenu.add(menuCadastro);
+            barraMenu.add(menuCadastro);
+
+            JLabel lblDados = new JLabel("Funcionário: " + this.janelaPrincipalC.usuario.getId());
+            lblDados.setBounds(10, 11, 200, 14);
+            add(lblDados);
+
+            JLabel lblNome = new JLabel("Você está logado como: " + this.janelaPrincipalC.usuario.getNome());
+            lblNome.setBounds(45, 42, 300, 14);
+            add(lblNome);
+
+
+        //dados do cliente
+        } else {
+            JLabel lblDados = new JLabel("Seus dados");
+            lblDados.setBounds(10, 11, 200, 14);
+            add(lblDados);
+
+            JLabel lblNome = new JLabel("Nome: " + this.janelaPrincipalC.usuario.getNome());
+            lblNome.setBounds(45, 42, 200, 14);
+            add(lblNome);
+
+            JLabel lblEmail = new JLabel("Email: " + ((Cliente) this.janelaPrincipalC.usuario).getEmail());
+            lblEmail.setBounds(45, 73, 200, 14);
+            add(lblEmail);
+            
+            JLabel lblSaldo = new JLabel("Saldo: " + ((Cliente) this.janelaPrincipalC.usuario).getSaldo());;
+            lblSaldo.setBounds(45, 106, 200, 14);
+            add(lblSaldo);
+        }
 
         barraMenu.add(Box.createHorizontalGlue());
 

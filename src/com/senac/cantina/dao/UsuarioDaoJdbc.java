@@ -1,12 +1,13 @@
 package com.senac.cantina.dao;
 
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
 import com.senac.cantina.dao.interfaces.UsuarioDao;
+import com.senac.cantina.model.Cliente;
+import com.senac.cantina.model.Funcionario;
 import com.senac.cantina.model.Usuario;
 
 public class UsuarioDaoJdbc extends Dao implements UsuarioDao {
@@ -65,7 +66,9 @@ public class UsuarioDaoJdbc extends Dao implements UsuarioDao {
     }
 
     public Usuario validarLogin(Usuario usuario) {
-        String sql = "SELECT * FROM usuario "
+        String sql = "SELECT * FROM usuario as u "
+                + "LEFT JOIN cliente as c ON c.id_usuario = u.id " 
+                + "LEFT JOIN funcionario as f ON f.id_usuario = u.id " 
                 + "WHERE usuario = :usuario AND senha = :senha";
         try {
             super.iniciaConexao(sql);
@@ -79,7 +82,27 @@ public class UsuarioDaoJdbc extends Dao implements UsuarioDao {
                 usuario.setNome(resultado.getString("nome"));
                 usuario.setUsuario(resultado.getString("usuario"));
                 usuario.setSenha(resultado.getString("senha"));
-                return usuario;
+
+                if (resultado.getInt("matricula") > 0) {
+                    Cliente c = new Cliente(
+                            resultado.getInt(5),
+                            resultado.getInt("id"),
+                            resultado.getInt("matricula"),
+                            resultado.getString("email"),
+                            resultado.getDouble("saldo")
+                    );
+                    c.setNome(resultado.getString("nome"));
+                    c.setUsuario(usuario);
+                    return c;
+                } else {
+                    Funcionario f = new Funcionario(
+                            resultado.getInt(10),
+                            resultado.getInt("id")
+                    );
+                    f.setNome(resultado.getString("nome"));
+                    f.setUsuario(usuario);
+                    return f;
+                }
             }
         } catch (ClassNotFoundException | SQLException ex) {
             super.logger(this.getClass().getName(), ex);

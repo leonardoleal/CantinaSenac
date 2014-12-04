@@ -35,7 +35,7 @@ public class LoginController implements ActionListener {
                 usuario = uJdbc.validarLogin(usuario);
 
                 if (usuario != null) {
-                    new JanelaPrincipalController();
+                    new JanelaPrincipalController(usuario);
                     loginView.dispose();
                     return;
                 }
