@@ -11,6 +11,7 @@ import com.senac.cantina.librarie.NamedParameterStatement;
 public class Dao {
     protected Connection conexao;
     protected NamedParameterStatement comando;
+    public static boolean DAODEBUG = true;
 
     public void iniciaConexao(String sql, int returnGeneratedKeys) throws ClassNotFoundException, SQLException {
         conexao = ConnectionFactory.getConexaoPostgres();
@@ -27,6 +28,8 @@ public class Dao {
     }
 
     protected void logger(String className, Exception ex) {
-        Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, className, ex);
+        if (DAODEBUG) {
+            Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, className, ex);
+        }
     }
 }

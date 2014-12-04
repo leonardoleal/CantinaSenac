@@ -55,6 +55,7 @@ public class FuncionarioController implements ActionListener {
                     JOptionPane.showMessageDialog(null,
                             "Não foi possível cadastradar o usuário.", "ERRO",
                             JOptionPane.ERROR_MESSAGE);
+                    // TODO rollback
                 }
             } else {
                 JOptionPane.showMessageDialog(null,

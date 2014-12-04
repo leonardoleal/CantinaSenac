@@ -2,6 +2,13 @@ package com.senac.cantina.model;
 
 public class Cliente extends Usuario {
     private int id;
+    private int idUsuario;
+    private int matricula;
+    private String email;
+    private double saldo;
+    private Usuario usuario;
+
+    public Cliente() {};
 
     public Cliente(int id, int idUsuario, int matricula, String email,
             double saldo) {
@@ -12,13 +19,6 @@ public class Cliente extends Usuario {
         this.email = email;
         this.saldo = saldo;
     }
-
-    private int idUsuario;
-    private int matricula;
-    private String email;
-    private double saldo;
-
-    public Cliente() {}
 
     public int getId() {
         return id;
@@ -58,5 +58,16 @@ public class Cliente extends Usuario {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public Usuario getUsuarioObject() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        if (usuario != null) {
+            this.usuario = usuario;
+            this.idUsuario = usuario.getId();
+        }
     }
 }
