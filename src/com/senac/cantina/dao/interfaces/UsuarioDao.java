@@ -5,9 +5,9 @@ import java.util.List;
 import com.senac.cantina.model.Usuario;
 
 public interface UsuarioDao {
-    public Usuario inserir(Usuario Usuario);
-    public boolean deletar(Usuario Usuario);
-    public boolean atualizar(Usuario Usuario);
+    public Usuario inserir(Usuario usuario);
+    public boolean deletar(Usuario usuario);
+    public boolean atualizar(Usuario usuario);
     public List<Usuario> listar();
-    public Usuario buscarPorId(Usuario Usuario);
+    public Usuario buscarPorId(Usuario usuario);
 }

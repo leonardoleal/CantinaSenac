@@ -5,9 +5,9 @@ import java.util.List;
 import com.senac.cantina.model.Funcionario;
 
 public interface FuncionarioDao {
-    public Funcionario inserir(Funcionario Funcionario);
-    public boolean deletar(Funcionario Funcionario);
-    public boolean atualizar(Funcionario Funcionario);
+    public Funcionario inserir(Funcionario funcionario);
+    public boolean deletar(Funcionario funcionario);
+    public boolean atualizar(Funcionario funcionario);
     public List<Funcionario> listar();
-    public Funcionario buscarPorId(Funcionario Funcionario);
+    public Funcionario buscarPorId(Funcionario funcionario);
 }

@@ -5,9 +5,9 @@ import java.util.List;
 import com.senac.cantina.model.Cliente;
 
 public interface ClienteDao {
-    public Cliente inserir(Cliente Cliente);
-    public boolean deletar(Cliente Cliente);
-    public boolean atualizar(Cliente Cliente);
+    public Cliente inserir(Cliente cliente);
+    public boolean deletar(Cliente cliente);
+    public boolean atualizar(Cliente cliente);
     public List<Cliente> listar();
     public Cliente buscarPorId(Cliente cliente);
     public Cliente buscarPorMatricula(Cliente cliente);
