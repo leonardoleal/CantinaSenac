@@ -27,8 +27,7 @@ public class ClienteController implements ActionListener {
         if (e.getSource().equals(formCliente.btnSalvar)) {
             if (Arrays.equals(
                     formCliente.pwdSenha.getPassword(),
-                    formCliente.pwdReSenha.getPassword()
-                ) && ! formCliente.pwdSenha.getPassword().toString().isEmpty()
+                    formCliente.pwdReSenha.getPassword())
             ) {
                 Cliente cliente = new Cliente();
                 cliente.setMatricula(Integer.parseInt(formCliente.txtMatricula.getText()));
@@ -37,7 +36,7 @@ public class ClienteController implements ActionListener {
                 cliente.setNome(formCliente.txtNome.getText());
                 cliente.setUsuario(formCliente.txtUsuario.getText());
                 cliente.setSenha(
-                        formCliente.pwdSenha.getPassword().toString()
+                        formCliente.pwdSenha.getPassword()
                 );
 
                 // cria usuario

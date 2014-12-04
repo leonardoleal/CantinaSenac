@@ -27,14 +27,13 @@ public class FuncionarioController implements ActionListener {
         if (e.getSource().equals(formFuncionario.btnSalvar)) {
             if (Arrays.equals(
                     formFuncionario.pwdSenha.getPassword(),
-                    formFuncionario.pwdReSenha.getPassword()
-                ) && ! formFuncionario.pwdSenha.getPassword().toString().isEmpty()
+                    formFuncionario.pwdReSenha.getPassword())
             ) {
                 Funcionario funcionario = new Funcionario();
                 funcionario.setNome(formFuncionario.txtNome.getText());
                 funcionario.setUsuario(formFuncionario.txtUsuario.getText());
                 funcionario.setSenha(
-                        formFuncionario.pwdSenha.getPassword().toString()
+                        formFuncionario.pwdSenha.getPassword()
                 );
 
                 // cria usuario

@@ -43,6 +43,14 @@ public class Usuario {
         return senha;
     }
 
+    public void setSenha(char[] cs) {
+        String senha = "";
+        for (char c : cs) {
+            senha += c;
+        }
+        this.senha = senha;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }

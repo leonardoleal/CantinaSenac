@@ -19,7 +19,8 @@ public class Dao {
     }
     
     protected void iniciaConexao(String sql) throws ClassNotFoundException, SQLException {
-        this.iniciaConexao(sql, 0);
+        conexao = ConnectionFactory.getConexaoPostgres();
+        comando = new NamedParameterStatement(conexao, sql);
     }
 
     protected void fecharConexao() throws SQLException {

@@ -64,4 +64,34 @@ public class UsuarioDaoJdbc extends Dao implements UsuarioDao {
         return null;
     }
 
+    public Usuario validarLogin(Usuario usuario) {
+        String sql = "SELECT * FROM usuario "
+                + "WHERE usuario = :usuario AND senha = :senha";
+        try {
+            super.iniciaConexao(sql);
+            comando.setString("usuario", usuario.getUsuario());
+            comando.setString("senha", usuario.getSenha());
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                usuario.setId(resultado.getInt("id"));
+                usuario.setNome(resultado.getString("nome"));
+                usuario.setUsuario(resultado.getString("usuario"));
+                usuario.setSenha(resultado.getString("senha"));
+                return usuario;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            super.logger(this.getClass().getName(), ex);
+        } finally {
+            try {
+                super.fecharConexao();
+            } catch (SQLException ex) {
+                super.logger(this.getClass().getName(), ex);
+            }
+        }
+
+        return null;
+    }
+
 }

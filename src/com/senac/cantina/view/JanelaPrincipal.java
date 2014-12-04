@@ -30,8 +30,6 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void init() {
-        janelaPrincipalC = new JanelaPrincipalController(this);
-
         setTitle("Cantina Senac");
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
