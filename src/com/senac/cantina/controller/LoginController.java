@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 import com.senac.cantina.dao.UsuarioDaoJdbc;
 import com.senac.cantina.librarie.Session;
-import com.senac.cantina.model.Cliente;
 import com.senac.cantina.model.Usuario;
 import com.senac.cantina.view.LoginView;
 

@@ -3,8 +3,6 @@ package com.senac.cantina.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.senac.cantina.model.Cliente;
-import com.senac.cantina.model.Usuario;
 import com.senac.cantina.view.JanelaPrincipal;
 
 public class JanelaPrincipalController implements ActionListener {

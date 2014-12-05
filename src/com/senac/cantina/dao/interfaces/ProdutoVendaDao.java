@@ -7,7 +7,7 @@ import com.senac.cantina.model.ProdutoVenda;
 import com.senac.cantina.model.Venda;
 
 public interface ProdutoVendaDao {
-	public ProdutoVenda cadastrarIdemVenda(Venda venda, Produto produto);
+	public ProdutoVenda cadastrarItemVenda(Venda venda, Produto produto, int quantidade);
 	public List<Integer> getIdProdutoDoCarrinho(Venda venda);
 	public void deletarProdutosDaVenda(Venda venda);
 }

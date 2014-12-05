@@ -27,6 +27,7 @@ public class CategoriaProdutoDaoJdbc extends Dao implements CategoriaProdutoDao 
 
             ResultSet res = comando.executeQuery();
 
+            comboBoxModel.addElement(new CategoriaProduto(0,"Selecione um produto"));
             while (res.next()) {
                 comboBoxModel.addElement(
                     new CategoriaProduto(

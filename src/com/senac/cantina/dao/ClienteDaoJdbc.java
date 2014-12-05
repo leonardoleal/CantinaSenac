@@ -24,11 +24,11 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
 
             ResultSet resultado = comando.getGeneratedKeys();
             resultado.next();
+            cliente.setId(resultado.getInt("id"));
 
-            cliente.setId(resultado.getInt(1));
-            return cliente;
         } catch (ClassNotFoundException | SQLException ex) {
             super.logger(this.getClass().getName(), ex);
+            cliente = null;
         } finally {
             try {
                 super.fecharConexao();
@@ -37,7 +37,7 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
             }
         }
 
-        return null;
+        return cliente;
     }
 
     @Override
@@ -48,7 +48,32 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
 
     @Override
     public boolean atualizar(Cliente cliente) {
-        // TODO Auto-generated method stub
+        String sql = "UPDATE cliente "
+                        + "SET matricula = :matricula, email = :email, saldo = :saldo "
+                        + "WHERE id = :id";
+        try {
+            iniciaConexao(sql);
+
+            comando.setInt("id", cliente.getId());
+            comando.setInt("matricula", cliente.getMatricula());
+            comando.setString("email", cliente.getEmail());
+            comando.setDouble("saldo", cliente.getSaldo());
+
+            int linhasAfetadas = comando.executeUpdate();
+            if (linhasAfetadas > 0) {
+                return true;
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            super.logger(this.getClass().getName(), ex);
+        } finally {
+            try {
+                super.fecharConexao();
+            } catch (SQLException ex) {
+                super.logger(this.getClass().getName(), ex);
+            }
+        }
+
         return false;
     }
 
@@ -60,14 +85,68 @@ public class ClienteDaoJdbc extends Dao implements ClienteDao {
 
     @Override
     public Cliente buscarPorId(Cliente cliente) {
-        // TODO Auto-generated method stub
-        return null;
+        String sql = "SELECT * FROM cliente "
+                        + "WHERE id = :id";
+
+        try {
+            iniciaConexao(sql);
+
+            comando.setInt("id", cliente.getId());
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                cliente = montaCliente(resultado);
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            super.logger(this.getClass().getName(), ex);
+        } finally {
+            try {
+                super.fecharConexao();
+            } catch (SQLException ex) {
+                super.logger(this.getClass().getName(), ex);
+            }
+        }
+        return cliente;
     }
 
     @Override
     public Cliente buscarPorMatricula(Cliente cliente) {
-        // TODO Auto-generated method stub
-        return null;
+        String sql = "SELECT * FROM cliente "
+                + "WHERE matricula = :matricula";
+
+        try {
+            iniciaConexao(sql);
+
+            comando.setInt("matricula", cliente.getMatricula());
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                cliente = montaCliente(resultado);
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            super.logger(this.getClass().getName(), ex);
+        } finally {
+            try {
+                super.fecharConexao();
+            } catch (SQLException ex) {
+                super.logger(this.getClass().getName(), ex);
+            }
+        }
+
+        return cliente;
     }
 
+    private Cliente montaCliente(ResultSet resultado) throws SQLException {
+        Cliente cliente = new Cliente();
+
+        cliente.setId(resultado.getInt("id"));
+        cliente.setIdUsuario(resultado.getInt("id_usuario"));
+        cliente.setMatricula(resultado.getInt("matricula"));
+        cliente.setEmail(resultado.getString("email"));
+        cliente.setSaldo(resultado.getDouble("saldo"));
+
+        return cliente;
+    }
 }

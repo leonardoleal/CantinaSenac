@@ -9,6 +9,16 @@ public class ProdutoVenda {
     private int quantidade;
     private double valor;
 
+    public ProdutoVenda(int id, int idVenda, 
+            int idProduto, int quantidade, double valor
+    ) {
+        this.id = id;
+        this.idVenda = idVenda;
+        this.idProduto = idProduto;
+        this.quantidade = quantidade;
+        this.valor = valor;
+    }
+
     public int getId() {
         return id;
     }

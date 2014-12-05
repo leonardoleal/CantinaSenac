@@ -55,4 +55,9 @@ public class Produto {
     public void setCategoria(CategoriaProduto categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return this.getNome() + " - " + this.getValor();
+    }
 }

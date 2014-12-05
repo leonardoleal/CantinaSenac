@@ -77,6 +77,7 @@ public class ProdutoDaoJdbc extends Dao implements ProdutoDao {
             comando.setInt("idCategoria", idCategoriaProduto);
             ResultSet res = comando.executeQuery();
 
+            comboBoxModel.addElement(new Produto(0,0,"Selecione um produto",0));
             while (res.next()) {
                 comboBoxModel.addElement(
                     new Produto(
