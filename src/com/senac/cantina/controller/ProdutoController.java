@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
-import com.senac.cantina.dao.CategoriaProdutoDaoJdbc;
 import com.senac.cantina.dao.ProdutoDaoJdbc;
 import com.senac.cantina.model.CategoriaProduto;
 import com.senac.cantina.model.Produto;
@@ -50,8 +49,8 @@ public class ProdutoController implements ActionListener {
         }
     }
 
-    public ComboBoxModel<CategoriaProduto> getComboBoxModel() {
-        CategoriaProdutoDaoJdbc cpJdbc = new CategoriaProdutoDaoJdbc();
-        return cpJdbc.getComboBoxModel();
+    public static ComboBoxModel<Produto> getComboBoxModel(int idCategoriaProduto) {
+        ProdutoDaoJdbc pJdbc = new ProdutoDaoJdbc();
+        return pJdbc.getComboBoxModelByCategoria(idCategoriaProduto);
     }
 }

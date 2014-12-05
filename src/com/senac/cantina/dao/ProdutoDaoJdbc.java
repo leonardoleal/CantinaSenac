@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 import com.senac.cantina.dao.interfaces.ProdutoDao;
 import com.senac.cantina.model.Produto;
 
@@ -63,4 +66,37 @@ public class ProdutoDaoJdbc extends Dao implements ProdutoDao {
         return null;
     }
 
+    public ComboBoxModel<Produto> getComboBoxModelByCategoria(int idCategoriaProduto) {
+        DefaultComboBoxModel<Produto> comboBoxModel =
+                new DefaultComboBoxModel<Produto>();
+
+        String sql = "SELECT * FROM produto "
+                        +"WHERE id_categoria = :idCategoria";
+        try {
+            super.iniciaConexao(sql);
+            comando.setInt("idCategoria", idCategoriaProduto);
+            ResultSet res = comando.executeQuery();
+
+            while (res.next()) {
+                comboBoxModel.addElement(
+                    new Produto(
+                        res.getInt("id"),
+                        res.getInt("id_categoria"),
+                        res.getString("nome"),
+                        res.getDouble("valor")
+                   )
+                );
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            super.logger(this.getClass().getName(), ex);
+        } finally {
+            try {
+                super.fecharConexao();
+            } catch (SQLException ex) {
+                super.logger(this.getClass().getName(), ex);
+            }
+        }
+
+        return comboBoxModel;
+    }
 }

@@ -9,18 +9,12 @@ import com.senac.cantina.view.JanelaPrincipal;
 
 public class JanelaPrincipalController implements ActionListener {
     private JanelaPrincipal janelaPrincipal;
-    public Usuario usuario;
 
     public JanelaPrincipalController(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
 
     public JanelaPrincipalController() {
-        this.janelaPrincipal = new JanelaPrincipal(this);
-    }
-
-    public JanelaPrincipalController(Usuario usuario) {
-        this.usuario = usuario;
         this.janelaPrincipal = new JanelaPrincipal(this);
     }
 
@@ -34,14 +28,8 @@ public class JanelaPrincipalController implements ActionListener {
             new FuncionarioController();
         } else if (e.getSource().equals(janelaPrincipal.itemCadastroProduto)) {
             new ProdutoController();
+        } else if (e.getSource().equals(janelaPrincipal.itemRegistrarVenda)) {
+            new VendaController();
         }
-    }
-
-    public boolean isCliente() {
-        if (usuario instanceof Cliente) {
-            return true;
-        } 
-
-        return false;
     }
 }

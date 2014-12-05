@@ -1,6 +1,7 @@
 package com.senac.cantina.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
@@ -13,12 +14,14 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.senac.cantina.controller.JanelaPrincipalController;
+import com.senac.cantina.librarie.Session;
 import com.senac.cantina.model.Cliente;
 
 public class JanelaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
 
     public JMenuItem itemSair, itemCadastroCliente, itemCadastroProduto, itemCadastroFuncionario;
+    public JMenuItem itemRegistrarVenda;
     public JanelaPrincipalController janelaPrincipalC;
 
     public JanelaPrincipal() {
@@ -34,7 +37,7 @@ public class JanelaPrincipal extends JFrame {
     private void init() {
         String titulo = "Cantina Senac";
 
-        if (this.janelaPrincipalC.isCliente()) {
+        if (Session.isCliente()) {
             titulo += " - Cliente";
         } else {
             titulo += " - Funcionario";
@@ -68,7 +71,7 @@ public class JanelaPrincipal extends JFrame {
 
         barraMenu.add(menuArquivo);
 
-        if (! this.janelaPrincipalC.isCliente()) {
+        if (! Session.isCliente()) {
             JMenu menuCadastro = new JMenu("Cadastro");
             menuCadastro.setMnemonic(KeyEvent.VK_D);
 
@@ -95,11 +98,19 @@ public class JanelaPrincipal extends JFrame {
 
             barraMenu.add(menuCadastro);
 
-            JLabel lblDados = new JLabel("Funcionário: " + this.janelaPrincipalC.usuario.getId());
+            itemRegistrarVenda = new JMenuItem("Registrar Venda");
+            itemRegistrarVenda.setMnemonic(KeyEvent.VK_V);
+            itemRegistrarVenda.setAccelerator(KeyStroke.getKeyStroke("control V"));
+            itemRegistrarVenda.setToolTipText("Registrar Venda");
+            itemRegistrarVenda.addActionListener(janelaPrincipalC);
+            itemRegistrarVenda.setMaximumSize(new Dimension(100, 50));
+            barraMenu.add(itemRegistrarVenda);
+
+            JLabel lblDados = new JLabel("Funcionário: " + Session.USUARIO.getId());
             lblDados.setBounds(10, 11, 200, 14);
             add(lblDados);
 
-            JLabel lblNome = new JLabel("Você está logado como: " + this.janelaPrincipalC.usuario.getNome());
+            JLabel lblNome = new JLabel("Você está logado como: " + Session.USUARIO.getNome());
             lblNome.setBounds(45, 42, 300, 14);
             add(lblNome);
 
@@ -110,15 +121,15 @@ public class JanelaPrincipal extends JFrame {
             lblDados.setBounds(10, 11, 200, 14);
             add(lblDados);
 
-            JLabel lblNome = new JLabel("Nome: " + this.janelaPrincipalC.usuario.getNome());
+            JLabel lblNome = new JLabel("Nome: " + Session.USUARIO.getNome());
             lblNome.setBounds(45, 42, 200, 14);
             add(lblNome);
 
-            JLabel lblEmail = new JLabel("Email: " + ((Cliente) this.janelaPrincipalC.usuario).getEmail());
+            JLabel lblEmail = new JLabel("Email: " + ((Cliente) Session.USUARIO).getEmail());
             lblEmail.setBounds(45, 73, 200, 14);
             add(lblEmail);
             
-            JLabel lblSaldo = new JLabel("Saldo: " + ((Cliente) this.janelaPrincipalC.usuario).getSaldo());;
+            JLabel lblSaldo = new JLabel("Saldo: " + ((Cliente) Session.USUARIO).getSaldo());;
             lblSaldo.setBounds(45, 106, 200, 14);
             add(lblSaldo);
         }

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.senac.cantina.controller.CategoriaProdutoController;
 import com.senac.cantina.controller.ProdutoController;
 import com.senac.cantina.model.CategoriaProduto;
 
@@ -66,7 +67,7 @@ public class FormProduto extends JFrame {
         add(lblIdCategoriaProduto);
 
         cmbIdCategoriaProduto = new JComboBox<CategoriaProduto>();
-        cmbIdCategoriaProduto.setModel(produtoC.getComboBoxModel());
+        cmbIdCategoriaProduto.setModel(CategoriaProdutoController.getComboBoxModel());
         cmbIdCategoriaProduto.setBounds(120, 103, 124, 20);
         add(cmbIdCategoriaProduto);
 
