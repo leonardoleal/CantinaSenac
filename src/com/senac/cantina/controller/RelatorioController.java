@@ -39,20 +39,29 @@ public class RelatorioController implements ActionListener {
     }
 
     private void vendaPorCliente() {
+        int matricula = relatorioView.solicitarMatriculaCliente();
+
         VendaDaoJdbc vJdbc = new VendaDaoJdbc();
-        AbstractTableModel atm = vJdbc.listarVendaPorCliente(27);
+        AbstractTableModel atm = vJdbc.listarVendaPorCliente(matricula);
+
         relatorioView.exibeRelatorio(atm);
     }
 
     private void vendaPorFuncionario() {
+        int cod = relatorioView.solicitarCodFuncinario();
+
         VendaDaoJdbc vJdbc = new VendaDaoJdbc();
-        AbstractTableModel atm = vJdbc.listarVendaPorCliente(2);
+        AbstractTableModel atm = vJdbc.listarVendaPorFuncionario(cod);
+
         relatorioView.exibeRelatorio(atm);
     }
 
     private void vendaPorMes() {
+        int[] dados = relatorioView.solicitarMesAnoVenda();
+
         VendaDaoJdbc vJdbc = new VendaDaoJdbc();
-        AbstractTableModel atm = vJdbc.listarVendaPorMes(12, 2014);
+        AbstractTableModel atm = vJdbc.listarVendaPorMes(dados[0], dados[1]);
+
         relatorioView.exibeRelatorio(atm);
     }
 

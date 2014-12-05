@@ -12,8 +12,9 @@ import com.senac.cantina.dao.interfaces.VendaDao;
 import com.senac.cantina.model.Cliente;
 import com.senac.cantina.model.Funcionario;
 import com.senac.cantina.model.Venda;
-import com.senac.cantina.model.VendaClienteModelo;
+import com.senac.cantina.model.VendaModelo;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class VendaDaoJdbc extends Dao implements VendaDao {
 
     @Override
@@ -57,18 +58,29 @@ public class VendaDaoJdbc extends Dao implements VendaDao {
 
     @Override
     public AbstractTableModel listarVendaPorFuncionario(int id) {
-        // TODO SQL e Colunas
-        String[] colunas = {"Nome", "Idade"};
-        List<Venda> listaVendas = new ArrayList<>();
+        String[] colunas = {"Data", "Total", "Atendente", "Matricula Cliente", "Cliente"};
+        List<ArrayList> listaVendas = new ArrayList<>();
 
-        String sql = "SELECT * FROM venda";
+        String sql = "SELECT v.data, v.total, uf.nome, c.matricula, uc.nome FROM venda v "
+                + "JOIN funcionario f ON f.id = v.id_funcionario AND f.id = :idFuncionario "
+                + "JOIN usuario uf ON uf.id = f.id_usuario "
+                + "JOIN cliente c on c.id = v.id_cliente "
+                + "JOIN usuario uc ON uc.id = c.id_usuario";
         try {
             iniciaConexao(sql);
+            comando.setInt("idFuncionario", id);
             ResultSet resultado = comando.executeQuery();
-            while(resultado.next())
-            {
-                Venda venda = montaVenda(resultado);
-                listaVendas.add(venda);
+
+            ArrayList list;
+            while(resultado.next()) {
+                list = new ArrayList();
+                list.add(resultado.getString(1));
+                list.add(resultado.getString(2));
+                list.add(resultado.getString(3));
+                list.add(resultado.getString(4));
+                list.add(resultado.getString(5));
+
+                listaVendas.add(list);
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -81,25 +93,36 @@ public class VendaDaoJdbc extends Dao implements VendaDao {
             }
         }
 
-        VendaClienteModelo modelo = new VendaClienteModelo(colunas, listaVendas);
+        VendaModelo modelo = new VendaModelo(colunas, listaVendas);
 
         return modelo;
     }
 
     @Override
     public AbstractTableModel listarVendaPorCliente(int id) {
-        // TODO SQL e Colunas
-        String[] colunas = {"Nome", "Idade"};
-        List<Venda> listaVendas = new ArrayList<>();
+        String[] colunas = {"Data", "Total", "Atendente", "Matricula Cliente", "Cliente"};
+        List<ArrayList> listaVendas = new ArrayList<>();
 
-        String sql = "SELECT * FROM venda";
+        String sql = "SELECT v.data, v.total, uf.nome, c.matricula, uc.nome FROM venda v "
+                + "JOIN funcionario f ON f.id = v.id_funcionario "
+                + "JOIN usuario uf ON uf.id = f.id_usuario "
+                + "JOIN cliente c on c.id = v.id_cliente AND c.id = :idCliente "
+                + "JOIN usuario uc ON uc.id = c.id_usuario";
         try {
             iniciaConexao(sql);
+            comando.setInt("idCliente", id);
             ResultSet resultado = comando.executeQuery();
-            while(resultado.next())
-            {
-                Venda venda = montaVenda(resultado);
-                listaVendas.add(venda);
+
+            ArrayList list;
+            while(resultado.next()) {
+                list = new ArrayList();
+                list.add(resultado.getString(1));
+                list.add(resultado.getString(2));
+                list.add(resultado.getString(3));
+                list.add(resultado.getString(4));
+                list.add(resultado.getString(5));
+
+                listaVendas.add(list);
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -112,25 +135,39 @@ public class VendaDaoJdbc extends Dao implements VendaDao {
             }
         }
 
-        VendaClienteModelo modelo = new VendaClienteModelo(colunas, listaVendas);
+        VendaModelo modelo = new VendaModelo(colunas, listaVendas);
 
         return modelo;
     }
 
     @Override
     public AbstractTableModel listarVendaPorMes(int mes, int ano) {
-        // TODO SQL e Colunas
-        String[] colunas = {"Nome", "Idade"};
-        List<Venda> listaVendas = new ArrayList<>();
+        String[] colunas = {"Data", "Total", "Atendente", "Matricula Cliente", "Cliente"};
+        List<ArrayList> listaVendas = new ArrayList<>();
 
-        String sql = "SELECT * FROM venda";
+        String sql = "SELECT v.data, v.total, uf.nome, c.matricula, uc.nome FROM venda v "
+                + "JOIN funcionario f ON f.id = v.id_funcionario "
+                + "JOIN usuario uf ON uf.id = f.id_usuario "
+                + "JOIN cliente c on c.id = v.id_cliente "
+                + "JOIN usuario uc ON uc.id = c.id_usuario "
+                + "WHERE EXTRACT(YEAR FROM v.data) = :ano "
+                + "AND EXTRACT(MONTH FROM v.data) = :mes ";
         try {
             iniciaConexao(sql);
+            comando.setInt("ano", ano);
+            comando.setInt("mes", mes);
             ResultSet resultado = comando.executeQuery();
-            while(resultado.next())
-            {
-                Venda venda = montaVenda(resultado);
-                listaVendas.add(venda);
+
+            ArrayList list;
+            while(resultado.next()) {
+                list = new ArrayList();
+                list.add(resultado.getString(1));
+                list.add(resultado.getString(2));
+                list.add(resultado.getString(3));
+                list.add(resultado.getString(4));
+                list.add(resultado.getString(5));
+
+                listaVendas.add(list);
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -143,7 +180,7 @@ public class VendaDaoJdbc extends Dao implements VendaDao {
             }
         }
 
-        VendaClienteModelo modelo = new VendaClienteModelo(colunas, listaVendas);
+        VendaModelo modelo = new VendaModelo(colunas, listaVendas);
 
         return modelo;
     }

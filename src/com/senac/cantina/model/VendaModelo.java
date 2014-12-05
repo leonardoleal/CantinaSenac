@@ -5,22 +5,23 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class VendaClienteModelo extends AbstractTableModel {
+@SuppressWarnings({ "unchecked", "rawtypes" })
+public class VendaModelo extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
 
     private String header[];
-    private List<Venda> vendas;
+    private List<ArrayList> vendas;
 
-    public VendaClienteModelo() {
-        vendas = new ArrayList<Venda>();
+    public VendaModelo() {
+        vendas = new ArrayList<ArrayList>();
 
     }
 
-    public VendaClienteModelo(String[] header) {
+    public VendaModelo(String[] header) {
         this.header = header;
     }
 
-    public VendaClienteModelo(String[] header, List<Venda> vendas) {
+    public VendaModelo(String[] header, List<ArrayList> vendas) {
         this.header = header;
         this.vendas = vendas;
 
@@ -42,22 +43,18 @@ public class VendaClienteModelo extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (columnIndex == 0) {
-            return (vendas.get(rowIndex).getData());
-        } else {
-            return (vendas.get(rowIndex).getTotal());
-        }
+        return (vendas.get(rowIndex).get(columnIndex));
     }
 
-    public void addVenda(Venda c) {
-        vendas.add(c);
+    public void addVenda(List<ArrayList> c) {
+        vendas.add((ArrayList) c);
     }
 
     public void removeVenda(int linha) {
         vendas.remove(linha);
     }
 
-    public Venda getVenda(int linha) {
+    public List<ArrayList> getVenda(int linha) {
         return (vendas.get(linha));
     }
 }
