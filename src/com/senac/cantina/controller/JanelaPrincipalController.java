@@ -28,6 +28,13 @@ public class JanelaPrincipalController implements ActionListener {
             new ProdutoController();
         } else if (e.getSource().equals(janelaPrincipal.itemRegistrarVenda)) {
             new VendaController();
+        } else if (e.getSource().equals(janelaPrincipal.itemRelPorCliente)) {
+            new RelatorioController(RelatorioController.tipoRelatorio.VENDAPORCLIENTE);
+        } else if (e.getSource().equals(janelaPrincipal.itemRelPorFuncionario)) {
+            new RelatorioController(RelatorioController.tipoRelatorio.VENDAPORFUNCIONARIO);
+        } else if (e.getSource().equals(janelaPrincipal.itemRelPorMes)) {
+            new RelatorioController(RelatorioController.tipoRelatorio.VENDAPORMES);
         }
+
     }
 }

@@ -21,7 +21,7 @@ public class JanelaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
 
     public JMenuItem itemSair, itemCadastroCliente, itemCadastroProduto, itemCadastroFuncionario;
-    public JMenuItem itemRegistrarVenda;
+    public JMenuItem itemRegistrarVenda, itemRelPorCliente, itemRelPorFuncionario, itemRelPorMes;
     public JanelaPrincipalController janelaPrincipalC;
 
     public JanelaPrincipal() {
@@ -105,6 +105,32 @@ public class JanelaPrincipal extends JFrame {
             itemRegistrarVenda.addActionListener(janelaPrincipalC);
             itemRegistrarVenda.setMaximumSize(new Dimension(100, 50));
             barraMenu.add(itemRegistrarVenda);
+
+            JMenu menuRelatorio = new JMenu("Relatório");
+            menuRelatorio.setMnemonic(KeyEvent.VK_L);
+
+            itemRelPorCliente = new JMenuItem("Vendas por Cliente");
+            itemRelPorCliente.setMnemonic(KeyEvent.VK_C);
+            itemRelPorCliente.setAccelerator(KeyStroke.getKeyStroke("control E"));
+            itemRelPorCliente.setToolTipText("Relatório de Vendas por Cliente");
+            itemRelPorCliente.addActionListener(janelaPrincipalC);
+            menuRelatorio.add(itemRelPorCliente);
+
+            itemRelPorFuncionario = new JMenuItem("Vendas por Funcionário");
+            itemRelPorFuncionario.setMnemonic(KeyEvent.VK_F);
+            itemRelPorFuncionario.setAccelerator(KeyStroke.getKeyStroke("control O"));
+            itemRelPorFuncionario.setToolTipText("Relatório de Vendas por Funcionário");
+            itemRelPorFuncionario.addActionListener(janelaPrincipalC);
+            menuRelatorio.add(itemRelPorFuncionario);
+
+            itemRelPorMes = new JMenuItem("Vendas por Mês");
+            itemRelPorMes.setMnemonic(KeyEvent.VK_M);
+            itemRelPorMes.setAccelerator(KeyStroke.getKeyStroke("control S"));
+            itemRelPorMes.setToolTipText("Relatório de Vendas por Cliente");
+            itemRelPorMes.addActionListener(janelaPrincipalC);
+            menuRelatorio.add(itemRelPorMes);
+
+            barraMenu.add(menuRelatorio);
 
             JLabel lblDados = new JLabel("Funcionário: " + Session.USUARIO.getId());
             lblDados.setBounds(10, 11, 200, 14);
