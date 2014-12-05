@@ -3,20 +3,34 @@ package com.senac.cantina.view;
 import java.awt.Color;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.senac.cantina.controller.ProdutoController;
+import com.senac.cantina.model.CategoriaProduto;
 
 public class FormProduto extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JLabel lblIdCategoriaProduto, lblId, lblNome, lblPreco, lblCadastrarProduto;
-    public JTextField txtNome, txtIdCategoriaProduto, txtPreco;
+    public JTextField txtNome, txtPreco;
+    public JComboBox<CategoriaProduto> cmbIdCategoriaProduto;
     public JButton btnSalvar, btnCancelar;
+    private ProdutoController produtoC;
 
     public FormProduto() {
+        produtoC = new ProdutoController(this);
+        init();
+    }
+
+    public FormProduto(ProdutoController produtoController)  {
+        produtoC = produtoController;
+        init();
+    }
+
+    public void init() {
         setTitle("Cadastro de Produto");
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,8 +44,6 @@ public class FormProduto extends JFrame {
     }
 
     private void iniciarComponentes() {
-        ProdutoController produtoC = new ProdutoController(this);
-
         lblCadastrarProduto = new JLabel("Dados do Produto");
         lblCadastrarProduto.setBounds(10, 11, 153, 14);
         add(lblCadastrarProduto);
@@ -53,10 +65,10 @@ public class FormProduto extends JFrame {
         lblIdCategoriaProduto.setBounds(45, 106, 69, 14);
         add(lblIdCategoriaProduto);
 
-        txtIdCategoriaProduto = new JTextField();
-        txtIdCategoriaProduto.setBounds(120, 103, 124, 20);
-        txtIdCategoriaProduto.setColumns(10);
-        add(txtIdCategoriaProduto);
+        cmbIdCategoriaProduto = new JComboBox<CategoriaProduto>();
+        cmbIdCategoriaProduto.setModel(produtoC.getComboBoxModel());
+        cmbIdCategoriaProduto.setBounds(120, 103, 124, 20);
+        add(cmbIdCategoriaProduto);
 
         lblPreco = new JLabel("Preço(R$):");
         lblPreco.setBounds(45, 139, 69, 14);

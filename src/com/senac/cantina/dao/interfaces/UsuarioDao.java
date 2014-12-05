@@ -10,4 +10,5 @@ public interface UsuarioDao {
     public boolean atualizar(Usuario usuario);
     public List<Usuario> listar();
     public Usuario buscarPorId(Usuario usuario);
+    public Usuario validarLogin(Usuario usuario);
 }

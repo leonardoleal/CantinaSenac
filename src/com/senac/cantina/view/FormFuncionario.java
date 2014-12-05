@@ -18,8 +18,19 @@ public class FormFuncionario extends JFrame {
     public JTextField txtNome, txtUsuario;
     public JPasswordField pwdSenha, pwdReSenha;
     public JButton btnSalvar, btnCancelar;
+    private FuncionarioController funcionarioC;
 
     public FormFuncionario() {
+        funcionarioC = new FuncionarioController(this);
+        init();
+    }
+
+    public FormFuncionario(FuncionarioController funcionarioController)  {
+        funcionarioC = funcionarioController;
+        init();
+    }
+
+    public void init() {
         setTitle("Cadastro de Funcionário");
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -33,8 +44,6 @@ public class FormFuncionario extends JFrame {
     }
 
     private void iniciarComponentes() {
-        FuncionarioController funcionarioC = new FuncionarioController(this);
-
         lblFuncionario = new JLabel("Dados do Funcionário");
         lblFuncionario.setBounds(10, 11, 153, 14);
         add(lblFuncionario);

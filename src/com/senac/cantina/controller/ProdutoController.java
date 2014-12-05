@@ -3,9 +3,12 @@ package com.senac.cantina.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
+import com.senac.cantina.dao.CategoriaProdutoDaoJdbc;
 import com.senac.cantina.dao.ProdutoDaoJdbc;
+import com.senac.cantina.model.CategoriaProduto;
 import com.senac.cantina.model.Produto;
 import com.senac.cantina.view.FormProduto;
 
@@ -26,7 +29,9 @@ public class ProdutoController implements ActionListener {
             Produto produto = new Produto();
             produto.setNome(formProduto.txtNome.getText());
             produto.setValor(Double.parseDouble(formProduto.txtPreco.getText()));
-            produto.setIdCategoria(Integer.parseInt(formProduto.txtIdCategoriaProduto.getText()));
+            produto.setIdCategoria(
+                    ((CategoriaProduto) formProduto.cmbIdCategoriaProduto.getSelectedItem()).getId()
+            );
 
             ProdutoDaoJdbc pJdbc = new ProdutoDaoJdbc();
             produto = pJdbc.inserir(produto);
@@ -43,5 +48,10 @@ public class ProdutoController implements ActionListener {
         } else if (e.getSource().equals(formProduto.btnCancelar)) {
             formProduto.dispose();
         }
+    }
+
+    public ComboBoxModel<CategoriaProduto> getComboBoxModel() {
+        CategoriaProdutoDaoJdbc cpJdbc = new CategoriaProdutoDaoJdbc();
+        return cpJdbc.getComboBoxModel();
     }
 }
